@@ -1,4 +1,5 @@
 import React from "react";
+import { NavBar } from "../components/nav-bar";
 
 interface BaseLayoutProps {
     children: React.ReactNode
@@ -8,7 +9,7 @@ const BaseLayout = (props: BaseLayoutProps) => {
     return (
         <body className="flex flex-col min-h-screen">
             <header className="flex flex-row justify-between max-h-16 px-4 bg-blue-900">
-                <nav>This is the nav</nav>
+                <NavBar />
             </header>
             <main className="flex flex-col flex-grow">
                 {props.children}
