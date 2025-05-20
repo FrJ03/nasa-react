@@ -1,10 +1,9 @@
 import React from "react";
+import { CustomIcon } from "./custom-icon";
 
 const NasaLogo = () => {
     return (
-        <figure className="object-cover w-fit">
-            <img className="h-full w-fit" alt="Nasa logo" src="/images/nasa-logo.png"/>
-        </figure>
+        <CustomIcon alt="Nasa logo" source="/images/nasa-logo.png" />
     )
 }
 
