@@ -17,7 +17,7 @@ export const useImages = () => {
         },
         {
             title: 'Image 1',
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/2449px-NASA_logo.svg.png',
+            url: "https://apod.nasa.gov/apod/image/2505/jwst-ngc346-800.png",
             hdurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/2449px-NASA_logo.svg.png',
             date: '2012-12-12',
             description: 'This is the image 1'
