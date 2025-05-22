@@ -6,6 +6,7 @@ import { ENV } from "../config/environment"
 
 export const useImages = () => {
     const [images, setImages] = useState<NasaImage[]>([])
+    const [filteredImages, setFilteredImages] = useState<NasaImage[]>(images)
 
     const devImages = [
         {
@@ -114,6 +115,7 @@ export const useImages = () => {
 
         if(image !== undefined){
             setImages([{...image}])
+            setFilteredImages(images)
         }
     }
 
@@ -127,6 +129,7 @@ export const useImages = () => {
         }
 
         setImages(images)
+        setFilteredImages(images)
     }
 
     const randomImages = async (nImages: number = 10) => {
@@ -139,14 +142,24 @@ export const useImages = () => {
         }
 
         setImages(images)
+        setFilteredImages(images)
+    }
+
+    const search = (query: string) => {
+        if(query === ''){
+            setFilteredImages(images)
+        } else {
+            setFilteredImages(images.filter(image => image.title.toLowerCase().includes(query.toLowerCase())))
+        }
     }
 
     return {
-        images,
+        images: filteredImages,
         getLocalImage: localStorageService.getImage,
         saveImage: localStorageService.saveImage,
         imagesByDate,
         imagesByDateRange,
-        randomImages
+        randomImages,
+        search
     }
 }

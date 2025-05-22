@@ -7,7 +7,7 @@ interface BaseLayoutProps {
 
 const BaseLayout = (props: BaseLayoutProps) => {
     return (
-        <body className="flex flex-col min-h-screen">
+        <>
             <header className="flex flex-row justify-between max-h-16 px-4 bg-blue-900">
                 <NavBar />
             </header>
@@ -21,7 +21,7 @@ const BaseLayout = (props: BaseLayoutProps) => {
                     href="mailto:example@example.com"
                 >example@example.com</a>
             </footer>
-        </body>
+        </>
     )
 }
 

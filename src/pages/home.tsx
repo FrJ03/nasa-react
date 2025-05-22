@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BaseLayout } from "../containers/base-layout";
 import { ImageContainer } from "../components/images/image-container";
 import { useImages } from "../hooks/useImages";
@@ -9,14 +9,17 @@ import { FilterModal } from "../components/modals/filter-modal";
 import { useFilter } from "../hooks/useFilter";
 import { FilterOptions } from "../model/filter-options";
 import { Filter } from "../model/filter";
+import { SearchBar } from "../components/search-bar";
 
 const HomePage = () => {    
-    const {images, randomImages, imagesByDateRange} = useImages()
+    const {images, randomImages, imagesByDateRange, search} = useImages()
     const {
         isOpen,
         openModal,
         closeModal
     } = useFilter(false)
+
+    const [query, setQuery] = useState<string>('')
 
     useEffect(() => {
         randomImages().then(() => {return})
@@ -31,6 +34,7 @@ const HomePage = () => {
         }
 
         closeModal()
+        setQuery('')
     }
 
     return (
@@ -38,11 +42,14 @@ const HomePage = () => {
             <section className="my-4">
                 <div className="flex flex-row justify-between mx-12 place-items-center">
                     <CustomButton onClick={openModal}><FilterIcon /></CustomButton>
-                    <div>SEARCH BAR</div>
-                    <CustomButton onClick={async () => await randomImages()}>Search</CustomButton>
+                    <SearchBar default={query} onChange={(value: string) => {
+                        setQuery(value)
+                        search(value)
+                    }}/>
+                    <CustomButton onClick={async () => search(query)}>Search</CustomButton>
                 </div>
                 <ImageContainer>
-                    {images.map(image => <ImageCard image={image}/>)}
+                    {images.map((image, index) => <ImageCard key={index}  image={image}/>)}
                 </ImageContainer>
             </section>
             <FilterModal isOpen={isOpen} onClose={closeFilter}/>
