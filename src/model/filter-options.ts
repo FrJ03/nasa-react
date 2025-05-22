@@ -1,3 +1,4 @@
 export enum FilterOptions {
-    DATE_RANGE
+    DATE_RANGE,
+    RANDOM_NUMBER
 }

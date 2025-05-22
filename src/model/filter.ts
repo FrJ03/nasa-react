@@ -1,7 +1,7 @@
 import { FilterOptions } from "./filter-options";
-import { DateRangeVM } from "./view-model/date-range";
+import { FilterVM } from "./view-model/filter";
 
 export interface Filter {
     option: FilterOptions,
-    value?: DateRangeVM
+    value?: FilterVM
 }

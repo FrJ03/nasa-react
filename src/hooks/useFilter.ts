@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { DateRangeVM } from "../model/view-model/date-range"
 
 export const useFilter = (init: boolean = false) => {
     const [isOpen, setIsOpen] = useState<boolean>(init)

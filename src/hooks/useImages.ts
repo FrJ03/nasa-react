@@ -138,7 +138,7 @@ export const useImages = () => {
         if(ENV === 'production'){
             images = await nasaService.getByNImages(nImages)
         } else {
-            images = [...devImages]
+            images = [...devImages.slice(0, nImages)]
         }
 
         setImages(images)

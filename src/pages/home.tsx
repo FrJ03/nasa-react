@@ -31,6 +31,10 @@ const HomePage = () => {
             && filter.value && filter.value.startDate && filter.value.endDate
         ) {
             await imagesByDateRange(filter.value.startDate, filter.value.endDate)
+        } else if (filter.option === FilterOptions.RANDOM_NUMBER
+            && filter.value && filter.value.nImages
+        ) {
+            await randomImages(filter.value.nImages)
         }
 
         closeModal()
