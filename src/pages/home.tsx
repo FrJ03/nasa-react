@@ -10,19 +10,24 @@ import { useFilter } from "../hooks/useFilter";
 import { FilterOptions } from "../model/filter-options";
 import { Filter } from "../model/filter";
 import { SearchBar } from "../components/search-bar";
+import { useStore } from "@nanostores/react"
+import { $nasa, findByDateRange, findNImages, searchImage } from "../store/nasaImages";
 
-const HomePage = () => {    
-    const {images, randomImages, imagesByDateRange, search} = useImages()
+const HomePage = () => {
     const {
         isOpen,
         openModal,
         closeModal
     } = useFilter(false)
 
+    const { searchedImages } = useStore($nasa)
+
     const [query, setQuery] = useState<string>('')
 
     useEffect(() => {
-        randomImages().then(() => {return})
+        (async () => {
+            await findNImages(10)
+        })()
     }, [])
 
     const closeFilter = async (filter: Filter) => {
@@ -30,11 +35,11 @@ const HomePage = () => {
             filter.option === FilterOptions.DATE_RANGE
             && filter.value && filter.value.startDate && filter.value.endDate
         ) {
-            await imagesByDateRange(filter.value.startDate, filter.value.endDate)
+            await findByDateRange(filter.value.startDate, filter.value.endDate)
         } else if (filter.option === FilterOptions.RANDOM_NUMBER
             && filter.value && filter.value.nImages
         ) {
-            await randomImages(filter.value.nImages)
+            await findNImages(filter.value.nImages)
         }
 
         closeModal()
@@ -48,12 +53,12 @@ const HomePage = () => {
                     <CustomButton onClick={openModal}><FilterIcon /></CustomButton>
                     <SearchBar default={query} onChange={(value: string) => {
                         setQuery(value)
-                        search(value)
+                        searchImage(value)
                     }}/>
-                    <CustomButton onClick={async () => search(query)}>Search</CustomButton>
+                    <CustomButton onClick={async () => searchImage(query)}>Search</CustomButton>
                 </div>
                 <ImageContainer>
-                    {images.map((image, index) => <ImageCard key={index}  image={image}/>)}
+                    {searchedImages.map((image, index) => <ImageCard key={index}  image={image}/>)}
                 </ImageContainer>
             </section>
             <FilterModal isOpen={isOpen} onClose={closeFilter}/>
